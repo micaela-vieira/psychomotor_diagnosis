@@ -1,0 +1,10 @@
+git lfs install
+git clone https://huggingface.co/deepset/gbert-large
+
+
+mkdir infersent_data
+curl -Lo infersent_data/infersent2.pkl https://dl.fbaipublicfiles.com/infersent/infersent2.pkl
+curl -Lo infersent_data/glove.840B.300d.zip http://nlp.stanford.edu/data/glove.840B.300d.zip
+unzip infersent_data/glove.840B.300d.zip -d infersent_data/
+rm infersent_data/glove.840B.300d.zip
+curl -LJo infersent_data/models.py https://raw.githubusercontent.com/facebookresearch/InferSent/main/models.py
