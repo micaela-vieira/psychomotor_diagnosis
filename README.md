@@ -1,1 +1,1 @@
-# Psychomotor diagnosis
+# Computer-assisted training software for psychomotor diagnostics
