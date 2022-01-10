@@ -1,1 +1,1 @@
-# psychomotor_diagnosis
+# Psychomotor diagnosis
