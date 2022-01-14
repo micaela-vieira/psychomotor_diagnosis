@@ -131,7 +131,7 @@ def get_expert_statements_and_categories(category: str, subcategory: str, abbrev
     """
     filename = 'experts/' + category + '_' + subcategory + '.tsv'
     expert_data = pd.read_csv(filename, sep='\t', header=None, names=['expert_ID', 'statement', 'category_ID', 'category_main', 'category_sub'], encoding='utf-8')
-    expert_categories = expert_data['category_main'].tolist()
+    expert_categories = [i.strip() for i in expert_data['category_main'].tolist()]
     extracted_sentences = expert_data['statement'].tolist()
     #preprocessing
     expert_sentences = []
