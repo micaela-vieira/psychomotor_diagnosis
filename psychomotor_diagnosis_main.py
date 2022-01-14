@@ -47,7 +47,7 @@ expert_sentences, expert_categories = get_expert_statements_and_categories(categ
 threshold = 0.9
 
 #define dictionary to accomodate scores of most similar sentences divided for categories
-categories_and_scores_most_similar_sentences = {}
+categories_and_scores_most_similar_sentences = {i: [] for i in set(expert_categories)}
 
 #get student sentences if argument -f was chosen
 if args['filename_student']:
@@ -59,10 +59,7 @@ if args['filename_student']:
     student_sentences = get_student_statements(args['filename_student'], subcategory, abbreviations, patient_name)
     for sent in student_sentences:
         score_most_similar_sentence, most_similar_sentence, most_similar_sentence_category = algorithm(sent, expert_sentences, expert_categories)
-        if most_similar_sentence_category in categories_and_scores_most_similar_sentences:
-            categories_and_scores_most_similar_sentences[most_similar_sentence_category].append(score_most_similar_sentence)
-        else:
-            categories_and_scores_most_similar_sentences[most_similar_sentence_category] = [score_most_similar_sentence]
+        categories_and_scores_most_similar_sentences[most_similar_sentence_category].append(score_most_similar_sentence)
         #print result on screen depending on threshold
         if score_most_similar_sentence >= threshold:
             print(sent, '\t', score_most_similar_sentence, '\t', most_similar_sentence, '\n')
@@ -106,6 +103,8 @@ print('FINAL REPORT')
 print('***************************************************************************************')
 print ("{:^30s} {:^30s} {:^30s}".format('CATEGORY', 'NR. ELEMENTS', 'AVERAGE'))
 for key, value in categories_and_scores_most_similar_sentences.items():
-    print ("{:^30s} {:^30s} {:^30s}".format(key, str(len(value)), str(round(np.average(value),3))))
+    if len(value) != 0:
+        print ("{:^30s} {:^30s} {:^30s}".format(key, str(len(value)), str(round(np.average(value),3))))
+    else:
+        print ("{:^30s} {:^30s} {:^30s}".format(key, str(0), str(0)))
 print('***************************************************************************************')
-
